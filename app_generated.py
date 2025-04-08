@@ -18,7 +18,7 @@ import html
 import re
 from openai import OpenAI
 from io import StringIO
-
+from pathlib import Path
 load_dotenv()
 
 # --- Configuration ---
@@ -326,7 +326,21 @@ def get_zega_logo_base64():
             return encoded_string
     except Exception as e:
         raise
-
+    
+def load_css(file_name):
+    """Loads a CSS file and injects it into the Streamlit app."""
+    try:
+        css_path = Path(__file__).parent / file_name
+        with open(css_path) as f:
+            st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+        # st.info(f"Loaded CSS: {file_name}") # Optional: uncomment for debugging
+    except FileNotFoundError:
+        st.error(f"CSS file not found: {file_name}. Make sure it's in the same directory as app.py.")
+    except Exception as e:
+        st.error(f"Error loading CSS file {file_name}: {e}")
+        
+load_css("style.css")
+        
 # Streamlit Interface
 st.title("Data Analysis Agent Interface")
 
