@@ -27,6 +27,7 @@ OPENAI_API_KEY=os.getenv("OPENAI_API_KEY") or st.secrets.get("OPENAI_API_KEY")
 client = OpenAI(api_key=OPENAI_API_KEY)
 csv_path = "SalesData.csv"
 
+
 if not os.path.exists(csv_path):
         print(f"Error: CSV file '{csv_path}' not found.")
         exit(1)
@@ -362,10 +363,26 @@ sample_questions = [
 ]
 
 selected_question = st.sidebar.selectbox("Select a sample question:", sample_questions)
+
+
+with open(csv_path, "rb") as f:
+    st.sidebar.download_button(
+        label="Download CSV",
+        data=f,
+        file_name="data.csv",
+        mime="text/csv"
+    )
+    
 user_query = st.text_area("Please write one question at a time.", value=selected_question, height=100)
 
 def process_query():
     try:
+        if len(user_query.strip()) == 0:
+            st.error("Please enter a query.")
+            return
+        elif not re.match("^[a-zA-Z0-9 ]*$", user_query):
+            st.error("Special characters are not allowed. Please use only letters and numbers.")
+            return
         # Step 1: Generate and execute code to get the data
         generated_code = generate_code(user_query, column_info, sample_str, csv_path)
         result = execute_code(generated_code, csv_path)
