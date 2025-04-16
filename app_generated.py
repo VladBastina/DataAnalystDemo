@@ -339,11 +339,19 @@ def load_css(file_name):
         st.error(f"CSS file not found: {file_name}. Make sure it's in the same directory as app.py.")
     except Exception as e:
         st.error(f"Error loading CSS file {file_name}: {e}")
-        
+ 
+ 
+st.markdown("""
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+""", unsafe_allow_html=True)       
 load_css("style.css")
         
 # Streamlit Interface
 st.title("Data Analysis Agent Interface")
+
+st.write(" In this demo, you'll explore a sample CSV file containing sales data—such as product names, regions, dates, and revenue figures. Simply type in natural language questions like “What were the best-selling products in March?” or “How did sales vary by region?” and the tool will instantly generate clear reports and visualizations. No technical skills needed—just ask and explore.")
 
 st.sidebar.markdown(
     f"""
@@ -380,7 +388,7 @@ def process_query():
         if len(user_query.strip()) == 0:
             st.error("Please enter a query.")
             return
-        elif not re.match("^[a-zA-Z0-9 ]*$", user_query):
+        elif not re.match("^[a-zA-Z0-9!?. ]*$", user_query):
             st.error("Special characters are not allowed. Please use only letters and numbers.")
             return
         # Step 1: Generate and execute code to get the data

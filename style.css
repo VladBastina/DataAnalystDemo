@@ -1,0 +1,32 @@
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Space Grotesk", sans-serif !important;
+  font-optical-sizing: auto !important;
+	font-weight: 700 !important;
+  font-style: normal !important;
+}
+
+h1, h2 {
+	letter-spacing: -1px !important;
+}
+
+h1 {
+	font-size: 36px !important;
+}
+
+h2 {
+	font-size: 27px !important;
+}
+
+.st-emotion-cache-1dp5vir {
+	background-image: linear-gradient(90deg, rgb(65, 105, 225), rgb(0, 255, 255)) !important;
+}
+
+body {
+	font-family: 'Inter Tight', Arial, Helvetica, sans-serif !important;
+	font-size: 14px !important;
+	text-align: left !important;
+}
+
+p , textarea {
+	font-family: 'Inter Tight', Arial, Helvetica, sans-serif !important;
+}
